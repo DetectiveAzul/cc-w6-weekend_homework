@@ -86,5 +86,39 @@ public class HotelTest {
         assertEquals(1, result.size());
     }
 
+    @Test
+    public void canCheckInGuest()
+    {
+        hotel.checkInGuest(guest02, bedroom02);
+        assertEquals(1, hotel.getRoom(2).getNumberOfGuests());
+    }
+
+    @Test
+    public void canCheckOutGuest() {
+        hotel.checkOutGuest(guest00);
+        hotel.checkOutGuest(guest01);
+        assertEquals(0, hotel.getTotalNumberOfGuest());
+    }
+
+    @Test
+    public void canCountRoomsByType() {
+        assertEquals(1, hotel.getNumberOfRooms(Type.DINING_ROOM));
+        assertEquals(1, hotel.getNumberOfRooms(Type.SINGLE_BEDROOM));
+    }
+
+    @Test
+    public void canCountVacantRooms() {
+        assertEquals(0, hotel.getNumberOfVacantRooms(Type.SINGLE_BEDROOM));
+    }
+
+    @Test
+    public void canSetTimeForGuests() {
+        hotel.checkOutGuest(guest00);
+        hotel.checkInGuest(guest00, bedroom02);
+        hotel.checkInGuest(guest02, bedroom02);
+        hotel.setTimeForWholeRoom(10, bedroom02);
+        assertEquals(10, guest00.getDaysBooked());
+        assertEquals(10, guest02.getDaysBooked());
+    }
 
 }
