@@ -3,20 +3,36 @@ import rooms.Room;
 import rooms.Type;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Hotel {
     private String name;
     private ArrayList<Room> rooms;
+    private HashMap<Type, Integer> roomQuantity;
 
     public Hotel(String name) {
         this.name = name;
         this.rooms = new ArrayList<>();
+
+    }
+
+    //Setting up the hashmap
+    public void populateRoomQuantity() {
+        this.roomQuantity = new HashMap<>();
+        for (Type roomType:Type.values()
+             ) {
+            this.roomQuantity.put(roomType, 0);
+        }
     }
 
     //Basic Hotel methods
 
     public ArrayList<Room> getRooms() {
         return rooms;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Room getRoom(int index) {

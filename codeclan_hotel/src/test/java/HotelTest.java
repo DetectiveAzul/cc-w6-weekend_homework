@@ -11,8 +11,6 @@ import rooms.chargeable.ConferenceRoom;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 
 public class HotelTest {
@@ -57,6 +55,10 @@ public class HotelTest {
 
     }
 
+    @Test
+    public void canGetName() {
+        assertEquals("CodeClan Towers", hotel.getName());
+    }
     @Test
     public void canGetRoomsAndNumberOfRooms() {
         ArrayList<Room> result = hotel.getRooms();
