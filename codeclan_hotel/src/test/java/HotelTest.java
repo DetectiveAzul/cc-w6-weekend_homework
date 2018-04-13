@@ -3,9 +3,12 @@ import org.junit.Test;
 import persons.Guest;
 import persons.PersonType;
 import rooms.DiningRoom;
+import rooms.Room;
 import rooms.Type;
 import rooms.chargeable.Bedroom;
 import rooms.chargeable.ConferenceRoom;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -20,6 +23,7 @@ public class HotelTest {
     private Bedroom bedroom02;
 
     private ConferenceRoom conference00;
+    private ConferenceRoom conference01;
     private DiningRoom dining00;
 
     private Guest guest00;
@@ -35,6 +39,7 @@ public class HotelTest {
         bedroom02 = new Bedroom(Type.FAMILY_BEDROOM, 75, 301);
 
         conference00 = new ConferenceRoom(Type.CONFERENCE_ROOM, 40, "Edinburgh Room");
+        conference01 = new ConferenceRoom(Type.CONFERENCE_ROOM, 40, "French Room");
         dining00 = new DiningRoom(Type.DINING_ROOM);
 
         guest00 = new Guest(PersonType.GUEST, "Jaime Lopez", 29, 2 );
@@ -49,7 +54,36 @@ public class HotelTest {
         hotel.addRoom(bedroom02);
         hotel.addRoom(conference00);
         hotel.addRoom(dining00);
-        
+
+    }
+
+    @Test
+    public void canGetRoomsAndNumberOfRooms() {
+        ArrayList<Room> result = hotel.getRooms();
+        assertEquals(5, hotel.getSize());
+    }
+
+    @Test
+    public void canRemoveRoom() {
+        hotel.removeRoom(0);
+        hotel.removeRoom(bedroom01);
+        assertEquals(3, hotel.getSize());
+    }
+
+    @Test
+    public void canGetRoom() {
+        assertEquals(bedroom00.getClass(),hotel.getRoom(1).getClass());
+    }
+
+    @Test
+    public void canGetTotalNumberOfGuest() {
+        assertEquals(2, hotel.getTotalNumberOfGuest());
+    }
+
+    @Test
+    public void canGetGuestFromARoom() {
+        ArrayList<Guest> result = hotel.getRoomGuests(hotel.getRoom(0));
+        assertEquals(1, result.size());
     }
 
 
