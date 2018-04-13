@@ -13,7 +13,7 @@ public abstract class Room {
         this.guests = new ArrayList<>();
     }
 
-    private Type getType() {
+    public Type getType() {
         return type;
     }
 
