@@ -7,10 +7,12 @@ import java.util.ArrayList;
 public abstract class Room {
     private Type type;
     private ArrayList<Guest> guests;
+    private Available available;
 
     public Room(Type type){
         this.type = type;
         this.guests = new ArrayList<>();
+        available = Available.AVAILABLE;
     }
 
     public Type getType() {
@@ -39,7 +41,16 @@ public abstract class Room {
     }
 
     public boolean isAvailable() {
-        return !(getNumberOfGuests() > 0);
+        return available.isAvailable();
+    }
+
+    public void bookRoom() {
+        this.available = Available.NOT_AVAILABLE;
+    }
+
+    public void unbookRoom() {
+        this.available = Available.AVAILABLE;
+
     }
 
     public boolean isFull() {
@@ -48,10 +59,12 @@ public abstract class Room {
 
     public void addGuest(Guest guest) {
         if (!isFull()) this.guests.add(guest);
+        if (this.getNumberOfGuests() >= 1) bookRoom();
     }
 
     public void removeGuest(Guest guest) {
         this.guests.remove(guest);
+        if (this.getNumberOfGuests() <= 0) unbookRoom();
     }
 
     public void clearRoom() {
