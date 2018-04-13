@@ -11,7 +11,7 @@ public abstract class Person {
         this.age = age;
     }
 
-    private PersonType getPersonType() {
+    public PersonType getPersonType() {
         return personType;
     }
 

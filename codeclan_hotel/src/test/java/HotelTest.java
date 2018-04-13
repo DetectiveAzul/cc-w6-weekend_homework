@@ -1,5 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
+import persons.Department;
+import persons.Employee;
 import persons.Guest;
 import persons.PersonType;
 import rooms.DiningRoom;
@@ -28,6 +30,12 @@ public class HotelTest {
     private Guest guest01;
     private Guest guest02;
 
+    private Employee employee00;
+    private Employee employee01;
+    private Employee employee02;
+    private Employee employee03;
+
+
     @Before
     public void before() {
         hotel = new Hotel("CodeClan Towers");
@@ -44,6 +52,15 @@ public class HotelTest {
         guest01 = new Guest(PersonType.GUEST, "Sara García", 26, 2);
         guest02 = new Guest(PersonType.GUEST, "Rubén Franco", 31, 5);
 
+        employee00 = new Employee(PersonType.PARTTIME_WORKER, "Jaime López", 29, Department.DINING, 24000);
+        employee01 = new Employee(PersonType.PARTTIME_WORKER, "Javier Martínez", 32, Department.DINING, 24000);
+        employee02 = new Employee(PersonType.FULLTIME_WORKER, "Sara García", 26, Department.LINEN_PORTER, 28000);
+        employee03 = new Employee(PersonType.FULLTIME_WORKER, "María García", 26, Department.LINEN_PORTER, 28000);
+
+        hotel.addEmployee(employee00);
+        hotel.addEmployee(employee01);
+        hotel.addEmployee(employee02);
+
         bedroom00.addGuest(guest00);
         dining00.addGuest(guest01);
 
@@ -52,6 +69,7 @@ public class HotelTest {
         hotel.addRoom(bedroom02);
         hotel.addRoom(conference00);
         hotel.addRoom(dining00);
+
 
     }
 
@@ -127,6 +145,32 @@ public class HotelTest {
     public void canCheckOutRoom() {
         hotel.checkOutRoom(bedroom00);
         assertEquals(0, hotel.getRoom(0).getNumberOfGuests());
+    }
+
+    @Test
+    public void canRemoveEmployee() {
+        hotel.removeEmployee(employee02);
+        ArrayList<Employee> result = hotel.getEmployeeList();
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    public void canGetEmployeeListSize() {
+        assertEquals(3, hotel.getEmployeeSize());
+    }
+
+    @Test
+    public void canGetEmployee() {
+        assertEquals(employee02.getClass(), hotel.getEmployee(0).getClass());
+    }
+
+    @Test
+    public void canUpdateAndCheckEmployeeNumber() {
+        assertEquals(1, hotel.getNumberEmployeeType(Department.LINEN_PORTER));
+        hotel.addEmployee(employee03);
+        assertEquals(2, hotel.getNumberEmployeeType(Department.LINEN_PORTER));
+        hotel.removeEmployee(employee03);
+        assertEquals(1, hotel.getNumberEmployeeType(Department.LINEN_PORTER));
     }
 
 }

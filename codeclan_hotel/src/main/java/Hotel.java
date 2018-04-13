@@ -1,3 +1,5 @@
+import persons.Department;
+import persons.Employee;
 import persons.Guest;
 import persons.PersonType;
 import rooms.Room;
@@ -9,11 +11,13 @@ import java.util.HashMap;
 public class Hotel {
     private String name;
     private ArrayList<Room> rooms;
-    private HashMap<PersonType, Integer> employeeCount;
+    private ArrayList<Employee> employee;
+    private HashMap<Department, Integer> employeeCount;
 
     public Hotel(String name) {
         this.name = name;
         this.rooms = new ArrayList<>();
+        this.employee = new ArrayList<>();
         this.employeeCount = new HashMap<>();
         populateEmployeeHashMap();
 
@@ -22,11 +26,10 @@ public class Hotel {
     //Setting up the hashmap
     public void populateEmployeeHashMap() {
         this.employeeCount = new HashMap<>();
-        for (PersonType worker:PersonType.values()
-             ) {
-            if (worker != PersonType.GUEST) this.employeeCount.put(worker, 0);
+        for (Department worker:Department.values())
+             this.employeeCount.put(worker, 0);
         }
-    }
+
 
     //Basic Hotel methods
 
@@ -59,20 +62,40 @@ public class Hotel {
     }
 
     //Managing Employee
-    public void addEmployee() {
+    public void addEmployee(Employee employee) {
+        this.employee.add(employee);
+        increaseEmployeeNumber(employee.getDepartment());
+    }
+
+    public void removeEmployee(Employee employee){
+        if (this.employee.remove(employee)) decreaseEmployeeNumber(employee.getDepartment());
 
     }
 
-    public void removeEmployee(){
-
+    public ArrayList<Employee> getEmployeeList() {
+        return employee;
     }
 
-    public void getEmployee() {
-
+    public Employee getEmployee (int index) {
+        return employee.get(index);
     }
 
-    public void getNumberOfEmployee(PersonType type) {
+    public int getEmployeeSize() {
+        return employee.size();
+    }
 
+    public int getNumberEmployeeType(Department type) {
+        return employeeCount.get(type);
+    }
+
+    private void increaseEmployeeNumber(Department type) {
+        int value = employeeCount.get(type);
+        employeeCount.put(type, value + 1);
+    }
+
+    private void decreaseEmployeeNumber(Department type) {
+        int value = employeeCount.get(type);
+        employeeCount.put(type, value - 1);
     }
 
     //Managing guests
