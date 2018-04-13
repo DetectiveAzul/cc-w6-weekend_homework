@@ -1,4 +1,5 @@
 import persons.Guest;
+import persons.PersonType;
 import rooms.Room;
 import rooms.Type;
 
@@ -8,22 +9,22 @@ import java.util.HashMap;
 public class Hotel {
     private String name;
     private ArrayList<Room> rooms;
-    private HashMap<Type, Integer> roomQuantity;
+    private HashMap<PersonType, Integer> employeeCount;
 
     public Hotel(String name) {
         this.name = name;
         this.rooms = new ArrayList<>();
-        roomQuantity = new HashMap<>();
-        populateRoomQuantity();
+        this.employeeCount = new HashMap<>();
+        populateEmployeeHashMap();
 
     }
 
     //Setting up the hashmap
-    public void populateRoomQuantity() {
-        this.roomQuantity = new HashMap<>();
-        for (Type roomType:Type.values()
+    public void populateEmployeeHashMap() {
+        this.employeeCount = new HashMap<>();
+        for (PersonType worker:PersonType.values()
              ) {
-            this.roomQuantity.put(roomType, 0);
+            if (worker != PersonType.GUEST) this.employeeCount.put(worker, 0);
         }
     }
 
@@ -55,6 +56,23 @@ public class Hotel {
 
     public int getSize() {
         return rooms.size();
+    }
+
+    //Managing Employee
+    public void addEmployee() {
+
+    }
+
+    public void removeEmployee(){
+
+    }
+
+    public void getEmployee() {
+
+    }
+
+    public void getNumberOfEmployee(PersonType type) {
+
     }
 
     //Managing guests

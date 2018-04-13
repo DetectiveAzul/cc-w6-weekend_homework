@@ -123,4 +123,10 @@ public class HotelTest {
         assertEquals(10, guest02.getDaysBooked());
     }
 
+    @Test
+    public void canCheckOutRoom() {
+        hotel.checkOutRoom(bedroom00);
+        assertEquals(0, hotel.getRoom(0).getNumberOfGuests());
+    }
+
 }
